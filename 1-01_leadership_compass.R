@@ -71,7 +71,24 @@ LINKED_LEADERSHIP <- CLEAN_LEADERSHIP %>%
 
 # Data Analysis -----------------------------------------------------------
 
-
+ANALYSED_LEADERSHIP <- LINKED_LEADERSHIP %>% 
+  mutate(
+    movement_x = case_when(
+      strongly_disagree == 1 ~ -2*value_x,
+      disagree          == 1 ~ -value_x,
+      neutral           == 1 ~ 0,
+      agree             == 1 ~ value_x,
+      strongly_agree    == 1 ~ 2*value_x
+    ),
+    
+    movement_y = case_when(
+      strongly_disagree == 1 ~ -2*value_y,
+      disagree          == 1 ~ -value_y,
+      neutral           == 1 ~ 0,
+      agree             == 1 ~ value_y,
+      strongly_agree    == 1 ~ 2*value_y
+    )
+  )
 
 
 
