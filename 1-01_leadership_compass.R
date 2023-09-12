@@ -46,8 +46,12 @@ RAW_LEADERSHIP <- map_df(sheet_names, ~{
     "leadership_compass.xlsx"
   ),
   sheet = sheet_name) %>% 
-    mutate(sheet_name = sheet_name)
+    mutate(person_name = sheet_name)
 })
+
+
+
+
 
 # Data Cleaning -----------------------------------------------------------
 
@@ -55,6 +59,8 @@ CLEAN_LEADERSHIP <- RAW_LEADERSHIP %>%
   
   # Remove NA and replace with 0
   mutate(across(!statement, ~ifelse(is.na(.), 0, .)))
+
+
 
 
 
@@ -66,6 +72,8 @@ LINKED_LEADERSHIP <- CLEAN_LEADERSHIP %>%
     LEADERSHIP_REFERENCE,
     join_by(statement)
   )
+
+
 
 
 
@@ -88,6 +96,15 @@ ANALYSED_LEADERSHIP <- LINKED_LEADERSHIP %>%
       agree             == 1 ~ value_y,
       strongly_agree    == 1 ~ 2*value_y
     )
+  )
+
+FINAL_LEADERSHIP_POSITION <- ANALYSED_LEADERSHIP %>% 
+  
+  group_by(person_name) %>% 
+  
+  summarise(
+    total_x = sum(movement_x),
+    total_y = sum(movement_y)
   )
 
 
