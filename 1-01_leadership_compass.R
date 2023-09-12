@@ -111,7 +111,61 @@ FINAL_LEADERSHIP_POSITION <- ANALYSED_LEADERSHIP %>%
 
 # Data Visualisation ------------------------------------------------------
 
-
+FINAL_LEADERSHIP_POSITION %>% 
+  
+  ggplot(aes(
+    x = total_x,
+    y = total_y,
+    colour = person_name
+  )) +
+  
+  geom_vline(
+    aes(xintercept = 0),
+    linewidth = 1.5,
+    color = "firebrick",
+    linetype = "dashed"
+    ) +
+  geom_hline(
+    aes(yintercept = 0),
+    linewidth = 1.5,
+    color = "firebrick",
+    linetype = "dashed"
+  ) +
+  geom_point(
+    size = 8
+  ) +
+  
+  scale_x_continuous(
+    limits = c(-40, 40),
+    sec.axis = sec_axis(~., name = "North - Mobilisers")
+  ) +
+  scale_y_continuous(
+    limits = c(-40, 40),
+    sec.axis = sec_axis(~., name = "West - Teachers")
+  ) +
+  scale_colour_viridis_d() +
+  
+  labs(
+    title  = "Leadership Compass Results",
+    x      = "South - Nurturer",
+    y      = "East - Visionaries",
+    colour = "Person"
+  ) +
+  
+  theme_minimal() +
+  theme(
+    axis.title.x = element_text(margin = margin(t = 10), size = 15),
+    axis.title.y = element_text(margin = margin(r = 10), size = 15),
+    axis.text.x  = element_blank(), #remove x axis labels
+    axis.ticks.x = element_blank(), #remove x axis ticks
+    axis.text.y  = element_blank(),  #remove y axis labels
+    axis.ticks.y = element_blank(),  #remove y axis ticks
+    plot.title   = element_text(face = "bold",
+                              margin = margin(10, 0, 10, 0),
+                              size = 14),
+    legend.title = element_text(size = 14),
+    legend.text  = element_text(size = 12)
+    )
 
 
 
