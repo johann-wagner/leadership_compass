@@ -31,11 +31,23 @@ LEADERSHIP_REFERENCE <- read_xlsx(here(
   ),
   sheet = "Reference")
 
-LEADERSHIP_PERSON1 <- read_xlsx(here(
+# Get names of all sheets and remove reference and example
+sheet_names <- excel_sheets(here(
   "raw_data",
   "leadership_compass.xlsx"
-),
-sheet = "Person1")
+))
+sheet_names <- sheet_names[!sheet_names %in% c("Reference", "Example")]
+
+# Read and combine sheets into a single data frame
+LEADERSHIP_DATA <- map_df(sheet_names, ~{
+  sheet_name = .x
+  read_xlsx(here(
+    "raw_data",
+    "leadership_compass.xlsx"
+  ),
+  sheet = sheet_name) %>% 
+    mutate(sheet_name = sheet_name)
+})
 
 # Data Cleaning -----------------------------------------------------------
 
