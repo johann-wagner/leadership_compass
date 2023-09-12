@@ -39,7 +39,7 @@ sheet_names <- excel_sheets(here(
 sheet_names <- sheet_names[!sheet_names %in% c("Reference", "Example")]
 
 # Read and combine sheets into a single data frame
-LEADERSHIP_DATA <- map_df(sheet_names, ~{
+RAW_LEADERSHIP <- map_df(sheet_names, ~{
   sheet_name = .x
   read_xlsx(here(
     "raw_data",
@@ -51,11 +51,14 @@ LEADERSHIP_DATA <- map_df(sheet_names, ~{
 
 # Data Cleaning -----------------------------------------------------------
 
+CLEAN_LEADERSHIP <- RAW_LEADERSHIP %>% 
+  
+  # Remove NA and replace with 0
+  mutate(across(!statement, ~ifelse(is.na(.), 0, .)))
 
 
 
-
-# Data Wrangling ----------------------------------------------------------
+# Data Linkage ----------------------------------------------------------
 
 
 
