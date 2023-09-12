@@ -60,7 +60,12 @@ CLEAN_LEADERSHIP <- RAW_LEADERSHIP %>%
 
 # Data Linkage ----------------------------------------------------------
 
-
+LINKED_LEADERSHIP <- CLEAN_LEADERSHIP %>% 
+  
+  left_join(
+    LEADERSHIP_REFERENCE,
+    join_by(statement)
+  )
 
 
 
