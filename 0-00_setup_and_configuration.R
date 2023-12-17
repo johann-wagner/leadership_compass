@@ -49,18 +49,6 @@ library(jsonlite)
 
 
 
+library(scales)
 
-
-# Google Drive Authentication --------------------------------------------------
-
-# To establish a connection between a Google Drive account and R
-drive_auth()
-
-# Example of how to download from Google Drive
-# drive_download(
-#   # Where to download file from
-#   "https://drive.google.com/file/d/1Fjq1r6016H4isB2Cx2wg-Xm9zY7lHhYV/view?usp=drive_link",
-# 
-#   # Where to save it locally
-#   path = here("foldertest", "text2")
-#   )
+library(readxl)
